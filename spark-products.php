@@ -23,3 +23,11 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+
+/**
+ * Stores the current plugin version.
+ *
+ * @since 1.0.0
+ */
+define( 'SPARK_PRODUCTS_VERSION', '1.0.0' );
