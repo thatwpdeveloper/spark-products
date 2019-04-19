@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The admin-specific functionality of the plugin.
+ * The hook-based functionality of the plugin.
  *
  * Defines the plugin name, version as well.
  *
@@ -73,6 +73,10 @@ class Spark_Products_Hook {
 		);
 
 		$products->register_post_type();
+
+	}
+
+	public function add_acf() {
 
 	}
 
