@@ -27,7 +27,7 @@ class Spark_Products_Admin {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string $plugin_name The ID of this plugin.
 	 */
 	private $plugin_name;
 
@@ -36,21 +36,22 @@ class Spark_Products_Admin {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @var      string $version The current version of this plugin.
 	 */
 	private $version;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
+	 * @param string $plugin_name The name of this plugin.
+	 * @param string $version The version of this plugin.
+	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -88,7 +89,7 @@ class Spark_Products_Admin {
 			array(
 				'taxonomy_name' => 'target_groups',
 				'singular'      => __( 'Target Group', 'spark_products' ),
-				'plural'        => __( 'Target Groups-', 'spark_products' ),
+				'plural'        => __( 'Target Groups', 'spark_products' ),
 				'slug'          => 'target-groups'
 			)
 		);
@@ -119,10 +120,17 @@ class Spark_Products_Admin {
 		) );
 
 		$cmb->add_field( array(
-			'name'         => 'Test File',
-			'desc'         => 'Upload an image or enter an URL.',
+			'name'         => __( 'Upload an image', 'spark-products' ),
+			'desc'         => __( 'Upload an image for this product', 'spark-products' ),
 			'id'           => 'spark_products_image',
 			'type'         => 'file',
+			'query_args'   => array(
+				'type' => array(
+					'image/gif',
+					'image/jpeg',
+					'image/png',
+				),
+			),
 			'text'         => array(
 				'add_upload_file_text' => __( 'Upload an image', 'spark-products' )
 			),
@@ -163,7 +171,7 @@ class Spark_Products_Admin {
 				'name'           => __( 'Default Target Group', 'spark-products' ),
 				'desc'           => __( 'Please select a default target group.', 'spark-products' ),
 				'id'             => 'spark_products_target_groups',
-				'taxonomy'       => 'target_groups', //Enter Taxonomy Slug
+				'taxonomy'       => 'target_groups',
 				'type'           => 'taxonomy_select',
 				'remove_default' => 'true',
 				'query_args'     => array(
