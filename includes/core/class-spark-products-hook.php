@@ -76,7 +76,9 @@ class Spark_Products_Hook {
 
 	}
 
-	public function add_acf() {
+	public function add_cmb2() {
+
+		require_once SPARK_PRODUCTS_PATH . 'addons/CMB2/init.php';
 
 	}
 
