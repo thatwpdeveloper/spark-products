@@ -89,7 +89,15 @@ class Spark_Products {
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-loader.php';
 
-		$this->loader = new Spark_Products_Loader();
+		/**
+		 * The class responsible for the handling image output.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'includes/helpers/class-spark-products-image.php';
+
+		/**
+		 * The class responsible for the handling rating output.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'includes/helpers/class-spark-products-rating.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
@@ -106,6 +114,14 @@ class Spark_Products {
 		 * The class responsible for generating and modifying post types.
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-post-type.php';
+
+		/**
+		 * The class responsible for the creating the widget.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'includes/widgets/class-spark-products-widget.php';
+
+
+		$this->loader = new Spark_Products_Loader();
 
 	}
 
@@ -142,6 +158,10 @@ class Spark_Products {
 		$this->loader->add_action( 'plugins_loaded', $plugin_hook, 'add_cmb2' );
 
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_hook, 'add_product_fields' );
+
+		$this->loader->add_action( 'widgets_init', $plugin_hook, 'add_widget' );
+
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_hook, 'add_star_rating_css' );
 
 	}
 

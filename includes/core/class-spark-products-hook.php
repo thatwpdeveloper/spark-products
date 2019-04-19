@@ -89,7 +89,7 @@ class Spark_Products_Hook {
 	public function add_product_fields() {
 
 		$cmb = new_cmb2_box( array(
-			'id'           => $this->plugin_name . '_details',
+			'id'           => 'spark_products_details',
 			'title'        => __( 'Product details', 'spark-products' ),
 			'object_types' => array( 'spark_products' ),
 			'context'      => 'normal',
@@ -100,7 +100,7 @@ class Spark_Products_Hook {
 		$cmb->add_field( array(
 			'name'         => 'Test File',
 			'desc'         => 'Upload an image or enter an URL.',
-			'id'           => $this->plugin_name . '_image',
+			'id'           => 'spark_products_image',
 			'type'         => 'file',
 			'text'         => array(
 				'add_upload_file_text' => __( 'Upload an image', 'spark-products' )
@@ -110,16 +110,31 @@ class Spark_Products_Hook {
 
 		$cmb->add_field( array(
 			'name'        => __( 'Rating', 'spark-products' ),
-			'description' => __( 'Please add a rating to this product, from 1 to 5.', 'spark-products' ),
-			'id'          => $this->plugin_name . '_rating',
+			'description' => __( 'Please add a rating to this product, from 0 to 5.', 'spark-products' ),
+			'id'          => 'spark_products_rating',
 			'type'        => 'text',
 			'attributes'  => array(
-				'type' => 'number',
-				'min'  => 0,
-				'max'  => 5,
+				'type'     => 'number',
+				'min'      => 0,
+				'max'      => 5,
+				'required' => 'required',
 			),
 		) );
 
+	}
+
+	public function add_widget() {
+		register_widget( 'spark_products_widget' );
+	}
+
+	public function add_star_rating_css() {
+		wp_enqueue_style(
+			$this->plugin_name . '-star-rating',
+			SPARK_PRODUCTS_URL . 'public/css/stars.css',
+			array(),
+			$this->version,
+			'screen'
+		);
 	}
 
 }
