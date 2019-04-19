@@ -107,6 +107,11 @@ class Spark_Products {
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-post-type.php';
 
+		/**
+		 * The class responsible for including required plugins.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-tgmpa.php';
+
 	}
 
 	/**
