@@ -73,8 +73,8 @@ class Spark_Products_Public {
 		$target_group = new Spark_Products_Target_Group();
 		$cookie = Spark_Products_Cookie::get_instance();
 
-		if($target_group->is_valid_taxonomy_term() ) {
-			$cookie->set_cookie('spark_products_target_group', $target_group->get_term());
+		if(!$target_group->is_valid_taxonomy_term()) {
+			return;
 		}
 
 		if(! $cookie->get_cookie('spark_products_target_group')) {
