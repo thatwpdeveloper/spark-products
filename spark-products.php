@@ -31,3 +31,15 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 1.0.0
  */
 define( 'SPARK_PRODUCTS_VERSION', '1.0.0' );
+define( 'SPARK_PRODUCTS_PATH', plugin_dir_path( __FILE__ ) );
+
+/**
+ * The code that runs during plugin activation.
+ * This action is documented in includes/core/class-spark-products-activator.php
+ */
+function activate_spark_products() {
+	require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-activator.php';
+	Spark_Products_Activator::set_db_tables();
+}
+
+register_activation_hook( __FILE__, 'activate_spark_products' );
