@@ -174,4 +174,17 @@ class Spark_Products_Hook {
 		);
 	}
 
+	public function add_target_group_caching() {
+		$target_group = new Spark_Products_Target_Group();
+		$cookie = Spark_Products_Cookie::get_instance();
+
+		if($target_group->is_valid_taxonomy_term() ) {
+			$cookie->set_cookie('spark_products_target_group', $target_group->get_term());
+		}
+
+		if(! $cookie->get_cookie('spark_products_target_group')) {
+			$cookie->set_cookie('spark_products_target_group', $target_group->get_term());
+		}
+	}
+
 }
