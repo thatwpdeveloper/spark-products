@@ -102,6 +102,9 @@ class Spark_Products {
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-hook.php';
 
+		/**
+		 * The class responsible for generating and modifying post types.
+		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-post-type.php';
 
 	}
