@@ -3,9 +3,9 @@
 // TODO: Documentation!
 class Spark_Products_Rating {
 
-	public static function star_rating( $post_id ) {
+	public static function star_rating( $post_id, $meta_key ) {
 
-		$rating = (int) get_post_meta( get_the_ID(), 'spark_products_rating', true );
+		$rating = (int) get_post_meta( $post_id, $meta_key, true );
 
 		$stars = '';
 
@@ -13,7 +13,7 @@ class Spark_Products_Rating {
 			$stars .= '<i class="icon-star"></i>';
 		}
 
-		for ( $star_blank; $star_blank < ( 5 - $rating ); $star_blank ++ ) {
+		for ( $star_blank = 0; $star_blank < ( 5 - $rating ); $star_blank ++ ) {
 			$stars .= '<i class="icon-star-empty"></i>';
 		}
 

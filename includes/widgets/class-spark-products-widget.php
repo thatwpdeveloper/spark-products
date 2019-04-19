@@ -57,7 +57,7 @@ class Spark_Products_Widget extends WP_Widget {
 				$this->output .= '</a>';
 
 				$this->output .= get_the_title();
-				$this->output .= Spark_Products_Rating::star_rating( get_the_ID() );
+				$this->output .= Spark_Products_Rating::star_rating( get_the_ID(), 'spark_products_rating' );
 				$this->output .= '</li>';
 			}
 			$this->output .= '</ul>';
