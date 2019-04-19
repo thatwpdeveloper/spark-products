@@ -148,4 +148,30 @@ class Spark_Products_Hook {
 		);
 	}
 
+	public function add_product_settings() {
+
+		$cmb_options = new_cmb2_box( array(
+			'id'           => 'spark_products_options_submenu',
+			'title'        => esc_html__( 'Product Options', 'cmb2' ),
+			'object_types' => array( 'options-page' ),
+			'option_key'   => 'spark-products-options',
+			'parent_slug'  => 'edit.php?post_type=spark_products',
+		) );
+
+		$cmb_options->add_field(
+			array(
+				'name'           => __( 'Default Target Group', 'spark-products' ),
+				'desc'           => __( 'Please select a default target group.', 'spark-products' ),
+				'id'             => 'spark_products_target_groups',
+				'taxonomy'       => 'target_groups', //Enter Taxonomy Slug
+				'type'           => 'taxonomy_select',
+				'remove_default' => 'true',
+				'query_args'     => array(
+					'orderby'    => 'slug',
+					'hide_empty' => false,
+				),
+			)
+		);
+	}
+
 }
