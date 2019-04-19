@@ -40,9 +40,22 @@ class Spark_Products_Widget extends WP_Widget {
 			$this->output .= $args['before_title'] . $title . $args['after_title'];
 		}
 
+		$default_target_group = get_option( 'spark-products-options' )['spark_products_target_groups'];
 
-// This is where you run the code and display the output
+		$query_param = isset( $_GET['target'] ) && ! empty( $_GET['target'] ) ? sanitize_key( $_GET['target'] ) : false;
 
+
+		if ( $default_target_group && $query_param ) {
+			$this->query_args['tax_query'] = array(
+				array(
+					'taxonomy' => 'target_groups',
+					'field'    => 'slug',
+					'terms'    => $query_param,
+				),
+			);
+		}
+
+		// This is where you run the code and display the output
 
 		$spark_products_query = new WP_Query( $this->query_args );
 
