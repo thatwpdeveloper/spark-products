@@ -61,6 +61,7 @@ class Spark_Products {
 		$this->plugin_name = 'spark-products';
 
 		$this->load_dependencies();
+		$this->set_locale();
 
 	}
 
@@ -70,6 +71,7 @@ class Spark_Products {
 	 * Include the following files that make up the plugin:
 	 *
 	 * - Spark_Products_Loader. Orchestrates the hooks of the plugin.
+	 * - Spark_Products_i18n. Defines internationalization functionality.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -86,6 +88,29 @@ class Spark_Products {
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-loader.php';
 
 		$this->loader = new Spark_Products_Loader();
+
+		/**
+		 * The class responsible for defining internationalization functionality
+		 * of the plugin.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-i18n.php';
+
+	}
+
+	/**
+	 * Define the locale for this plugin for internationalization.
+	 *
+	 * Uses the Spark_Products_i18n class in order to set the domain and to register the hook
+	 * with WordPress.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function set_locale() {
+
+		$plugin_i18n = new Spark_Products_i18n();
+
+		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
 	}
 
