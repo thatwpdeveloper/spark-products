@@ -106,14 +106,15 @@ class Spark_Products {
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-i18n.php';
 
 		/**
+		 * The class responsible for generating and modifying post types.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-post-type.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-hook.php';
 
-		/**
-		 * The class responsible for generating and modifying post types.
-		 */
-		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-post-type.php';
 
 		/**
 		 * The class responsible for the creating the widget.
@@ -153,12 +154,12 @@ class Spark_Products {
 
 		$plugin_hook = new Spark_Products_Hook( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'init', $plugin_hook, 'add_products_post_type' );
+		$this->loader->add_action( 'init', $plugin_hook, 'add_products_post_type' , 10 );
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_hook, 'add_cmb2' );
 
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_hook, 'add_product_fields' );
-
+		
 		$this->loader->add_action( 'widgets_init', $plugin_hook, 'add_widget' );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_hook, 'add_star_rating_css' );

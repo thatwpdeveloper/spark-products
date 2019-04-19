@@ -74,6 +74,17 @@ class Spark_Products_Hook {
 
 		$products->register_post_type();
 
+		$products->register_taxonomy(
+			array(
+				'taxonomy_name' => 'target_groups',
+				'singular'      => __( 'Target Group', 'spark_products' ),
+				'plural'        => __( 'Target Groups-', 'spark_products' ),
+				'slug'          => 'target-groups'
+			)
+		);
+
+		$products->register_taxonomies();
+
 	}
 
 	public function add_cmb2() {
