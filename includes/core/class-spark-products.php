@@ -111,9 +111,19 @@ class Spark_Products {
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-post-type.php';
 
 		/**
-		 * The class responsible for defining all actions that occur in the admin area.
+		 * The class responsible for defining all actions that occur in the admin/public area.
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-hook.php';
+
+		/**
+		 * The class responsible for the retrieving the target group.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'includes/helpers/class-spark-products-target-group.php';
+
+		/**
+		 * The class responsible for the caching the target group.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'includes/cookies/class-spark-products-cookie.php';
 
 
 		/**
@@ -161,11 +171,12 @@ class Spark_Products {
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_hook, 'add_product_fields' );
 
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_hook, 'add_product_settings' , 20 );
-		
+
 		$this->loader->add_action( 'widgets_init', $plugin_hook, 'add_widget' );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_hook, 'add_star_rating_css' );
 
+		$this->loader->add_action( 'init', $plugin_hook, 'add_target_group_caching' , 20 );
 	}
 
 	/**
