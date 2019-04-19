@@ -43,3 +43,14 @@ function activate_spark_products() {
 }
 
 register_activation_hook( __FILE__, 'activate_spark_products' );
+
+/**
+ * The code that runs during plugin deactivation.
+ * This action is documented in includes/core/class-spark-products-deactivator.php
+ */
+function deactivate_spark_products() {
+	require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-deactivator.php';
+	Spark_Products_Deactivator::remove_db_tables();
+}
+
+register_deactivation_hook( __FILE__, 'deactivate_spark_products' );
