@@ -114,11 +114,6 @@ class Spark_Products {
 		/**
 		 * The class responsible for defining all actions that occur in the admin/public area.
 		 */
-		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-hook.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the admin/public area.
-		 */
 		require_once SPARK_PRODUCTS_PATH . 'admin/class-spark-products-admin.php';
 
 		/**
