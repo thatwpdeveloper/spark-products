@@ -47,14 +47,16 @@ class Spark_Products_Widget extends WP_Widget {
 		$spark_products_query = new WP_Query( $this->query_args );
 
 		if ( $spark_products_query->have_posts() ) {
-			$this->output .= '<ul>';
+			$this->output .= '<ul class="spark-products">';
 			while ( $spark_products_query->have_posts() ) {
 				$spark_products_query->the_post();
 
 				$this->output .= '<li>';
-				$this->output .= '<img src="' . Spark_Products_Image::post_meta( get_the_ID() ) . '" alt="' . get_the_title() . '">';
+				$this->output .= '<a href="' . get_permalink() . '">';
+				$this->output .= Spark_Products_Image::from_post_meta( get_the_ID(), 'spark_products_image', get_the_title() );
+				$this->output .= '</a>';
+
 				$this->output .= get_the_title();
-				$this->output .= get_post_meta( get_the_ID(), 'spark_products_rating', true );
 				$this->output .= Spark_Products_Rating::star_rating( get_the_ID() );
 				$this->output .= '</li>';
 			}

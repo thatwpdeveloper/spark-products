@@ -4,12 +4,14 @@
 
 class Spark_Products_Image {
 
-	public static function post_meta( $post_id ) {
-		$image = get_post_meta( get_the_ID(), 'spark_products_image', true );
+	public static function from_post_meta( $post_id, $meta_key, $alt_text ) {
+		$src = get_post_meta( $post_id, $meta_key, true );
 
-		if ( empty( $image ) ) {
-			$image = SPARK_PRODUCTS_URL . 'public/img/default-image.png';
+		if ( empty( $src ) ) {
+			$src = SPARK_PRODUCTS_URL . 'public/img/default-image.png';
 		}
+
+		$image = '<img src="' . esc_url( $src ) . '" alt="' . sanitize_text_field( $alt_text ) . '">';
 
 		return $image;
 	}
