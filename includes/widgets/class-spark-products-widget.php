@@ -2,7 +2,7 @@
 
 // TODO: Documentation and refactor
 
-class Spark_Products_Widget extends WP_Widget {
+final class Spark_Products_Widget extends WP_Widget {
 
 	protected $query_args = array();
 	protected $output = '';
@@ -18,7 +18,7 @@ class Spark_Products_Widget extends WP_Widget {
 
 // Creating widget front-end
 
-	protected function set_query_args() {
+	public function set_query_args() {
 		$this->query_args = array(
 			'post_type'      => 'spark_products',
 			'posts_per_page' => 5,
@@ -40,20 +40,26 @@ class Spark_Products_Widget extends WP_Widget {
 			$this->output .= $args['before_title'] . $title . $args['after_title'];
 		}
 
-		$default_target_group = get_option( 'spark-products-options' )['spark_products_target_groups'];
 
-		$query_param = isset( $_GET['target'] ) && ! empty( $_GET['target'] ) ? sanitize_key( $_GET['target'] ) : false;
+		$target_group = new Spark_Products_Target_Group();
+		$cookie = Spark_Products_Cookie::get_instance();
+
+		$term = $target_group->get_term();
 
 
-		if ( $default_target_group && $query_param ) {
-			$this->query_args['tax_query'] = array(
-				array(
-					'taxonomy' => 'target_groups',
-					'field'    => 'slug',
-					'terms'    => $query_param,
-				),
-			);
+		if ( $cookie->get_cookie( 'spark_products_target_group' ) ) {
+            $term = $cookie->get_cookie( 'spark_products_target_group' );
 		}
+
+
+		$this->query_args['tax_query'] = array(
+			array(
+				'taxonomy' => 'target_groups',
+				'field'    => 'slug',
+				'terms'    => $term,
+			),
+		);
+
 
 		// This is where you run the code and display the output
 
