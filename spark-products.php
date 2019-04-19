@@ -31,7 +31,20 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 1.0.0
  */
 define( 'SPARK_PRODUCTS_VERSION', '1.0.0' );
+
+/**
+ * Stores the server path to the plugin.
+ *
+ * @since 1.0.0
+ */
 define( 'SPARK_PRODUCTS_PATH', plugin_dir_path( __FILE__ ) );
+
+/**
+ * Stores the url path to the plugin.
+ *
+ * @since 1.0.0
+ */
+define( 'SPARK_PRODUCTS_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * The code that runs during plugin activation.
