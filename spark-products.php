@@ -54,3 +54,27 @@ function deactivate_spark_products() {
 }
 
 register_deactivation_hook( __FILE__, 'deactivate_spark_products' );
+
+
+/**
+ * The core plugin class that is used to define internationalization,
+ * admin-specific hooks, and public-facing site hooks.
+ */
+require SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products.php';
+
+/**
+ * Begins execution of the plugin.
+ *
+ * Since everything within the plugin is registered via hooks,
+ * then kicking off the plugin from this point in the file does
+ * not affect the page life cycle.
+ *
+ * @since    1.0.0
+ */
+function run_spark_products() {
+
+	$plugin = new Spark_Products();
+	$plugin->run();
+
+}
+run_spark_products();
