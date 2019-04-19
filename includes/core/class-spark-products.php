@@ -62,7 +62,8 @@ class Spark_Products {
 
 		$this->load_dependencies();
 		$this->set_locale();
-		$this->define_hooks();
+		$this->define_admin_hooks();
+		$this->define_public_hooks();
 
 	}
 
@@ -116,6 +117,16 @@ class Spark_Products {
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-hook.php';
 
 		/**
+		 * The class responsible for defining all actions that occur in the admin/public area.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'admin/class-spark-products-admin.php';
+
+		/**
+		 * The class responsible for defining all actions that occur in the admin/public area.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'public/class-spark-products-public.php';
+
+		/**
 		 * The class responsible for the retrieving the target group.
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/helpers/class-spark-products-target-group.php';
@@ -160,23 +171,38 @@ class Spark_Products {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_hooks() {
+	private function define_admin_hooks() {
 
-		$plugin_hook = new Spark_Products_Hook( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Spark_Products_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'init', $plugin_hook, 'add_products_post_type' , 10 );
+		$this->loader->add_action( 'init', $plugin_admin, 'add_products_post_type' , 10 );
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_hook, 'add_cmb2' );
+		$this->loader->add_action( 'plugins_loaded', $plugin_admin, 'add_cmb2' );
 
-		$this->loader->add_action( 'cmb2_admin_init', $plugin_hook, 'add_product_fields' );
+		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'add_product_fields' );
 
-		$this->loader->add_action( 'cmb2_admin_init', $plugin_hook, 'add_product_settings' , 20 );
+		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'add_product_settings' , 20 );
 
-		$this->loader->add_action( 'widgets_init', $plugin_hook, 'add_widget' );
+		$this->loader->add_action( 'widgets_init', $plugin_admin, 'add_widget' );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_hook, 'add_star_rating_css' );
+	}
 
-		$this->loader->add_action( 'init', $plugin_hook, 'add_target_group_caching' , 20 );
+
+	/**
+	 * Register all of the hooks related to the functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_public_hooks() {
+
+		$plugin_public = new Spark_Products_Public( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'init', $plugin_public, 'add_target_group_caching' , 20 );
+
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'add_star_rating_css' );
+
 	}
 
 	/**
