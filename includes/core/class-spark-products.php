@@ -139,7 +139,8 @@ class Spark_Products {
 
 		$this->loader->add_action( 'init', $plugin_hook, 'add_products_post_type' );
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_hook, 'add_acf' );
+		$this->loader->add_action( 'plugins_loaded', $plugin_hook, 'add_cmb2' );
+
 	}
 
 	/**
