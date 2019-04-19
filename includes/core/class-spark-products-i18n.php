@@ -28,6 +28,4 @@ class Spark_Products_i18n {
 
 	}
 
-
-
 }
