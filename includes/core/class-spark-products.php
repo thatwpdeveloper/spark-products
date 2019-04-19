@@ -141,6 +141,8 @@ class Spark_Products {
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_hook, 'add_cmb2' );
 
+		$this->loader->add_action( 'cmb2_admin_init', $plugin_hook, 'add_product_fields' );
+
 	}
 
 	/**

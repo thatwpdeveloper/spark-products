@@ -78,7 +78,47 @@ class Spark_Products_Hook {
 
 	public function add_cmb2() {
 
+		if ( class_exists( 'CMB2' ) ) {
+			return;
+		}
+
 		require_once SPARK_PRODUCTS_PATH . 'addons/CMB2/init.php';
+
+	}
+
+	public function add_product_fields() {
+
+		$cmb = new_cmb2_box( array(
+			'id'           => $this->plugin_name . '_details',
+			'title'        => __( 'Product details', 'spark-products' ),
+			'object_types' => array( 'spark_products' ),
+			'context'      => 'normal',
+			'priority'     => 'high',
+			'show_names'   => true,
+		) );
+
+		$cmb->add_field( array(
+			'name'         => 'Test File',
+			'desc'         => 'Upload an image or enter an URL.',
+			'id'           => $this->plugin_name . '_image',
+			'type'         => 'file',
+			'text'         => array(
+				'add_upload_file_text' => __( 'Upload an image', 'spark-products' )
+			),
+			'preview_size' => 'medium',
+		) );
+
+		$cmb->add_field( array(
+			'name'        => __( 'Rating', 'spark-products' ),
+			'description' => __( 'Please add a rating to this product, from 1 to 5.', 'spark-products' ),
+			'id'          => $this->plugin_name . '_rating',
+			'type'        => 'text',
+			'attributes'  => array(
+				'type' => 'number',
+				'min'  => 0,
+				'max'  => 5,
+			),
+		) );
 
 	}
 
