@@ -12,9 +12,7 @@
 class Spark_Products_Activator {
 
 	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
+	 * Creates the necessary database entries in wp_options.
 	 *
 	 * @since    1.0.0
 	 */
