@@ -102,6 +102,8 @@ class Spark_Products {
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-hook.php';
 
+		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-post-type.php';
+
 	}
 
 	/**
@@ -132,6 +134,7 @@ class Spark_Products {
 
 		$plugin_hook = new Spark_Products_Hook( $this->get_plugin_name(), $this->get_version() );
 
+		$this->loader->add_action( 'init', $plugin_hook, 'add_products_post_type' );
 	}
 
 	/**
