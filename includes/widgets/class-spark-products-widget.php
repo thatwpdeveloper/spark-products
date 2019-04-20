@@ -10,7 +10,6 @@
 
 final class Spark_Products_Widget extends WP_Widget {
 
-
 	/**
 	 * Holds the HTML output of the widget.
 	 *
@@ -20,16 +19,6 @@ final class Spark_Products_Widget extends WP_Widget {
 	 * @var $output
 	 */
 	protected $output = '';
-
-	/**
-	 * Holds the HTML output of the form in Appearance > Widgets.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @type string
-	 * @var $output
-	 */
-	protected $form_output = '';
 
 	/**
 	 * Spark_Products_Widget constructor.
