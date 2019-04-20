@@ -17,7 +17,7 @@ class Spark_Products_Activator {
 	 * @since    1.0.0
 	 */
 	public static function set_db_tables() {
-		add_option( 'spark_products' );
+		add_option( 'spark-products-options' );
 	}
 
 }

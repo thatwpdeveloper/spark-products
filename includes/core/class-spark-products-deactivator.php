@@ -17,7 +17,7 @@ class Spark_Products_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function remove_db_tables() {
-		delete_option( 'spark_products' );
+		delete_option( 'spark-products-options' );
 	}
 
 }
