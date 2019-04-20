@@ -131,6 +131,11 @@ class Spark_Products {
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/cookies/class-spark-products-cookie.php';
 
+		/**
+		 * The class responsible the products query.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'includes/queries/class-spark-products-query.php';
+
 
 		/**
 		 * The class responsible for the creating the widget.
