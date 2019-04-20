@@ -74,7 +74,14 @@ class Spark_Products {
 	 *
 	 * - Spark_Products_Loader. Orchestrates the hooks of the plugin.
 	 * - Spark_Products_i18n. Defines internationalization functionality.
-	 * - Spark_Products_Hook. Defines all hooks for the plugin.
+	 * - Spark_Products_Image. Defines the handling of the image output.
+	 * - Spark_Products_Rating. Defines the handling of the rating output.
+	 * - Spark_Products_Post_Type. Defines the generation and modification of post types.
+	 * - Spark_Products_Admin. Defines all hooks for the admin area.
+	 * - Spark_Products_Public. Defines all hooks for the public area.
+	 * - Spark_Products_Target_Group. Defines the target group logic.
+	 * - Spark_Products_Cookie. Defines ways to manage cookies in the browser.
+	 * - Spark_Products_Query. Defines the products query.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -91,6 +98,12 @@ class Spark_Products {
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-loader.php';
 
 		/**
+		 * The class responsible for defining internationalization functionality
+		 * of the plugin.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-i18n.php';
+
+		/**
 		 * The class responsible for the handling image output.
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/helpers/class-spark-products-image.php';
@@ -101,23 +114,17 @@ class Spark_Products {
 		require_once SPARK_PRODUCTS_PATH . 'includes/helpers/class-spark-products-rating.php';
 
 		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-i18n.php';
-
-		/**
 		 * The class responsible for generating and modifying post types.
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/core/class-spark-products-post-type.php';
 
 		/**
-		 * The class responsible for defining all actions that occur in the admin/public area.
+		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'admin/class-spark-products-admin.php';
 
 		/**
-		 * The class responsible for defining all actions that occur in the admin/public area.
+		 * The class responsible for defining all actions that occur in the public area.
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'public/class-spark-products-public.php';
 
