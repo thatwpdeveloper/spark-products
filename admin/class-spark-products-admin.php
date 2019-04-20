@@ -109,16 +109,6 @@ class Spark_Products_Admin {
 
 	}
 
-	public function add_cmb2() {
-
-		if ( class_exists( 'CMB2' ) ) {
-			return;
-		}
-
-
-
-	}
-
 	public function add_product_fields() {
 
 		$cmb = new_cmb2_box( array(
