@@ -18,7 +18,7 @@ class Spark_Products_Cookie {
 	 *
 	 * @since 1.0.0
 	 * @access protected
-	 * @var null
+	 * @var $_instance
 	 */
 	protected static $_instance = null;
 
