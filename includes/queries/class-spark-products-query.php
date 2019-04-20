@@ -49,12 +49,34 @@ class Spark_Product_Query {
 	 * @since 1.0.0
 	 * @access public
 	 */
-	public function __construct( $query_args, $queried_term ) {
+	public function __construct( $queried_term ) {
 
-		$this->query_args   = $query_args;
 		$this->queried_term = $queried_term;
 
+		$this->set_query_args();
 		$this->set_query();
+	}
+
+	/**
+	 * Sets the basic query args.
+	 *
+	 * The query will display up to 5 products descending, based on their rating.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @return array
+	 */
+	protected function set_query_args() {
+		$this->query_args = array(
+			'post_type'      => 'spark_products',
+			'posts_per_page' => 5,
+			'meta_key'       => 'spark_products_rating',
+			'meta_type'      => 'NUMERIC',
+			'orderby'        => 'meta_value_num'
+
+		);
+
+		return $this->query_args;
 	}
 
 	/**
