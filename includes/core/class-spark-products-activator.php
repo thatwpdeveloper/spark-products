@@ -15,6 +15,7 @@ class Spark_Products_Activator {
 	 * Creates the necessary database entries in wp_options.
 	 *
 	 * @since    1.0.0
+	 * @access   public
 	 */
 	public static function set_db_tables() {
 		add_option( 'spark-products-options' );
