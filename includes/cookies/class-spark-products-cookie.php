@@ -24,6 +24,9 @@ class Spark_Products_Cookie {
 
 	/**
 	 * Retrieves the singleton instance.
+	 *
+	 * @since 1.0.0
+	 * @access public
 	 * @return Spark_Products_Cookie
 	 */
 	public static function get_instance() {
@@ -39,6 +42,8 @@ class Spark_Products_Cookie {
 	 *
 	 * Do not store sensitive information.
 	 *
+	 * @since 1.0.0
+	 * @access public
 	 * @link http://www.php.net/manual/en/function.set_cookie.php
 	 * @param name string The name of the cookie.
 	 * @param value string The value of the cookie.
@@ -76,6 +81,8 @@ class Spark_Products_Cookie {
 	/**
 	 * Retrieves a cookie by name.
 	 *
+	 * @since 1.0.0
+	 * @access public
 	 * @param string $name
 	 * @return string|boolean Returns false in case of failure.
 	 */
