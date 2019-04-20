@@ -65,6 +65,9 @@ class Spark_Products_Admin {
 	 */
 	public function add_products_post_type() {
 
+		/**
+		 * Creates the post type, without registering.
+		 */
 		$products = new Spark_Products_Post_Type(
 			array(
 				'post_type_name' => 'spark_products',
@@ -94,8 +97,14 @@ class Spark_Products_Admin {
 			)
 		);
 
+		/**
+		 * Registers the post type.
+		 */
 		$products->register_post_type();
 
+		/**
+		 * Creates the taxonomy, without registering.
+		 */
 		$products->register_taxonomy(
 			array(
 				'taxonomy_name' => 'target_groups',
@@ -105,13 +114,21 @@ class Spark_Products_Admin {
 			)
 		);
 
+		/**
+		 * Registers the taxonomy.
+		 */
 		$products->register_taxonomies();
 
 	}
 
+	/**
+	 * Adds the image upload and rating options to the products post type.
+	 *
+	 * @since 1.0.0
+	 */
 	public function add_product_fields() {
 
-		$cmb = new_cmb2_box( array(
+		$product_details = new_cmb2_box( array(
 			'id'           => 'spark_products_details',
 			'title'        => __( 'Product details', 'spark-products' ),
 			'object_types' => array( 'spark_products' ),
@@ -120,7 +137,7 @@ class Spark_Products_Admin {
 			'show_names'   => true,
 		) );
 
-		$cmb->add_field( array(
+		$product_details->add_field( array(
 			'name'         => __( 'Upload an image', 'spark-products' ),
 			'desc'         => __( 'Upload an image for this product', 'spark-products' ),
 			'id'           => 'spark_products_image',
@@ -138,7 +155,7 @@ class Spark_Products_Admin {
 			'preview_size' => 'medium',
 		) );
 
-		$cmb->add_field( array(
+		$product_details->add_field( array(
 			'name'        => __( 'Rating', 'spark-products' ),
 			'description' => __( 'Please add a rating to this product, from 0 to 5.', 'spark-products' ),
 			'id'          => 'spark_products_rating',
@@ -153,21 +170,35 @@ class Spark_Products_Admin {
 
 	}
 
+	/**
+	 * Registers the widget for the plugin.
+	 *
+	 * @since 1.0.0
+	 */
 	public function add_widget() {
 		register_widget( 'spark_products_widget' );
 	}
 
+	/**
+	 * Adds the general options for the products.
+	 *
+	 * It shall be found under Products > Products Options.
+	 *
+	 * @since 1.0.0
+	 */
 	public function add_product_settings() {
 
-		$cmb_options = new_cmb2_box( array(
-			'id'           => 'spark_products_options_submenu',
-			'title'        => esc_html__( 'Product Options', 'cmb2' ),
-			'object_types' => array( 'options-page' ),
-			'option_key'   => 'spark-products-options',
-			'parent_slug'  => 'edit.php?post_type=spark_products',
-		) );
+		$products_options = new_cmb2_box(
+			array(
+				'id'           => 'spark_products_options_submenu',
+				'title'        => esc_html__( 'Products Options', 'cmb2' ),
+				'object_types' => array( 'options-page' ),
+				'option_key'   => 'spark-products-options',
+				'parent_slug'  => 'edit.php?post_type=spark_products',
+			)
+		);
 
-		$cmb_options->add_field(
+		$products_options->add_field(
 			array(
 				'name'           => __( 'Default Target Group', 'spark-products' ),
 				'desc'           => __( 'Please select a default target group.', 'spark-products' ),
