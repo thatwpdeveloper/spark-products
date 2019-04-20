@@ -54,6 +54,11 @@ class Spark_Products_Public {
 
 	}
 
+	/**
+	 * Adds the star related CSS to the front-end.
+	 *
+	 * @since 1.0.0
+	 */
 	public function add_star_rating_css() {
 		wp_enqueue_style(
 			$this->plugin_name . '-star-rating',
@@ -64,6 +69,11 @@ class Spark_Products_Public {
 		);
 	}
 
+	/**
+	 * Adds the caching logic for the front-end.
+	 *
+	 * @since 1.0.0
+	 */
 	public function add_target_group_caching() {
 
 		if(is_admin()) {
