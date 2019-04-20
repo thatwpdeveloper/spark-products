@@ -81,6 +81,9 @@ class Spark_Product_Query {
 
 	/**
 	 * Sets the custom terms related arguments.
+	 *
+	 * @since 1.0.0
+	 * @access protected
 	 * @return mixed
 	 */
 	protected function set_term_to_query_args() {
