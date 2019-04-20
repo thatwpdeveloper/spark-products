@@ -55,6 +55,14 @@ class Spark_Products_Admin {
 
 	}
 
+	/**
+	 * Adds the Products post type to WordPress and registers the target group taxonomy.
+	 *
+	 * The key is 'spark-products' in order to avoid name collision if Woocommerce
+	 * or any other plugin that uses the 'product' or 'products' keys.
+	 *
+	 * @since 1.0.0
+	 */
 	public function add_products_post_type() {
 
 		$products = new Spark_Products_Post_Type(
@@ -77,8 +85,11 @@ class Spark_Products_Admin {
 				'can_export'          => true,
 				'has_archive'         => false,
 				'exclude_from_search' => true,
-				'publicly_queryable'  => false,
-				'rewrite'             => false,
+				'publicly_queryable'  => true,
+				'rewrite'             => array(
+					'with_front' => true,
+					'slug'       => 'spark-products',
+				),
 				'capability_type'     => 'post',
 			)
 		);
@@ -104,7 +115,7 @@ class Spark_Products_Admin {
 			return;
 		}
 
-		require_once SPARK_PRODUCTS_PATH . 'addons/CMB2/init.php';
+
 
 	}
 

@@ -109,6 +109,11 @@ class Spark_Products {
 		require_once SPARK_PRODUCTS_PATH . 'includes/helpers/class-spark-products-image.php';
 
 		/**
+		 * The framework that handles the custom fields and options page creation.
+		 */
+		require_once SPARK_PRODUCTS_PATH . 'addons/CMB2/init.php';
+
+		/**
 		 * The class responsible for the handling rating output.
 		 */
 		require_once SPARK_PRODUCTS_PATH . 'includes/helpers/class-spark-products-rating.php';
@@ -183,8 +188,6 @@ class Spark_Products {
 		$plugin_admin = new Spark_Products_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'add_products_post_type' , 10 );
-
-		$this->loader->add_action( 'plugins_loaded', $plugin_admin, 'add_cmb2' );
 
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'add_product_fields' );
 
