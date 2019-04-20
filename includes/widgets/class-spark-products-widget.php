@@ -1,107 +1,118 @@
 <?php
 
-// TODO: Documentation and refactor
+/**
+ * Manages the widget creation.
+ *
+ * @since      1.0.0
+ * @package    Spark_Products
+ * @subpackage Spark_Products/widgets
+ */
 
 final class Spark_Products_Widget extends WP_Widget {
 
-	protected $query_args = array();
+
+	/**
+	 * Holds the HTML output of the widget.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @type string
+	 * @var $output
+	 */
 	protected $output = '';
 
+	/**
+	 * Holds the HTML output of the form in Appearance > Widgets.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @type string
+	 * @var $output
+	 */
+	protected $form_output = '';
+
+	/**
+	 * Spark_Products_Widget constructor.
+	 */
 	function __construct() {
+
+		/**
+		 * Calls the parent WP_Widget constructor.
+		 */
 		parent::__construct(
 			'spark_products_widget',
 			__( 'Spark Products Widget', 'spark_products' )
 		);
 
-		$this->set_query_args();
 	}
 
-// Creating widget front-end
-
-	public function set_query_args() {
-		$this->query_args = array(
-			'post_type'      => 'spark_products',
-			'posts_per_page' => 5,
-			'meta_key'       => 'spark_products_rating',
-			'meta_type'      => 'NUMERIC',
-			'orderby'        => 'meta_value_num'
-
-		);
-
-		return $this->query_args;
-	}
-
+	/**
+	 * Handles the widget front-end part.
+	 *
+	 * @param array $args
+	 * @param array $instance
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
 	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
-// before and after widget arguments are defined by themes
 		$this->output .= $args['before_widget'];
+
 		if ( ! empty( $title ) ) {
 			$this->output .= $args['before_title'] . $title . $args['after_title'];
 		}
 
-
 		$target_group = new Spark_Products_Target_Group();
+
 		$cookie = Spark_Products_Cookie::get_instance();
 
 		$term = $target_group->get_term();
 
-
-		if ( $cookie->get_cookie( 'spark_products_target_group' ) ) {
-            $term = $cookie->get_cookie( 'spark_products_target_group' );
+		/**
+		 * If cookie is set and the url fails to provide a valid target group to query against,
+		 * then we will try to read the user's cookie file and get the target group from there.
+		 */
+		if ( $cookie->get_cookie( 'spark_products_target_group' ) && ! $target_group->is_valid_taxonomy_term() ) {
+			$term = $cookie->get_cookie( 'spark_products_target_group' );
 		}
 
+		$products_query = new Spark_Product_Query( $term );
 
-		$this->query_args['tax_query'] = array(
-			array(
-				'taxonomy' => 'target_groups',
-				'field'    => 'slug',
-				'terms'    => $term,
-			),
-		);
+		/**
+		 * Starting the object buffer to avoid output issues on the front-end.
+		 */
+		ob_start();
 
+		$products_query->run_query();
 
-		// This is where you run the code and display the output
-
-		$spark_products_query = new WP_Query( $this->query_args );
-
-		if ( $spark_products_query->have_posts() ) {
-			$this->output .= '<ul class="spark-products">';
-			while ( $spark_products_query->have_posts() ) {
-				$spark_products_query->the_post();
-
-				$this->output .= '<li>';
-				$this->output .= '<a href="' . get_permalink() . '">';
-				$this->output .= Spark_Products_Image::from_post_meta( get_the_ID(), 'spark_products_image', get_the_title() );
-				$this->output .= '</a>';
-
-				$this->output .= get_the_title();
-				$this->output .= Spark_Products_Rating::star_rating( get_the_ID(), 'spark_products_rating' );
-				$this->output .= '</li>';
-			}
-			$this->output .= '</ul>';
-
-			/* Restore original Post Data */
-			wp_reset_postdata();
-		} else {
-			$this->output .= __( 'No products found.', 'spark-products' );
-		}
-
+		/**
+		 * Gets the clean output and appends it to the widget HTML output.
+		 */
+		$this->output .= ob_get_clean();
 
 		$this->output .= $args['after_widget'];
 
 		echo $this->output;
 	}
 
-// Widget Backend
+	/**
+	 * Handles the widget backend part.
+	 *
+	 * @param array $instance
+	 *
+	 * @return string|void
+	 * @since 1.0.0
+	 * @access public
+	 */
 	public function form( $instance ) {
+
 		if ( isset( $instance['title'] ) ) {
 			$title = $instance['title'];
 		} else {
 			$title = __( 'New title', 'spark_products' );
-		}
-// Widget admin form
-		?>
+		} ?>
         <p>
             <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>"
@@ -109,9 +120,19 @@ final class Spark_Products_Widget extends WP_Widget {
                    value="<?php echo esc_attr( $title ); ?>"/>
         </p>
 		<?php
+
 	}
 
-// Updating widget replacing old instances with new
+	/**
+	 * Updates widget replacing old instances with new one.
+	 *
+	 * @param array $new_instance
+	 * @param array $old_instance
+	 *
+	 * @return array
+	 * @since 1.0.0
+	 * @access public
+	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance          = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
