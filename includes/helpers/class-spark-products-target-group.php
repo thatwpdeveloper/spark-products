@@ -6,6 +6,8 @@ class Spark_Products_Target_Group {
 	protected $target_group;
 	protected $db_options;
 	protected $url_param = null;
+	protected $default_term = null;
+
 
 	public function __construct() {
 		$this->db_options = get_option( 'spark-products-options' );
@@ -27,9 +29,21 @@ class Spark_Products_Target_Group {
 		return false;
 	}
 
+	public function set_default_term() {
+
+		if(isset($this->db_options['spark_products_target_groups'])) {
+			$this->default_term = $this->db_options['spark_products_target_groups'];
+		}
+
+		return $this->default_term;
+	}
+
+
 	public function get_default_term() {
 
-		return $this->db_options['spark_products_target_groups'];
+		$this->set_default_term();
+
+		return $this->default_term;
 	}
 
 	public function is_valid_taxonomy_term() {
